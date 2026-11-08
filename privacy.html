@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy · Send Me Up</title>
+<meta name="description" content="What Send Me Up keeps, and what it sends where. In short: your location stays on your device.">
+<meta name="theme-color" content="#0a0f1c">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<style>
+/* Same visual language as the app (and as Dig Straight Through's privacy page): dark page, one readable column. */
+:root {
+  --space: #0a0f1c;
+  --panel: #111a2d;
+  --line: #24304b;
+  --ink: #e9edf6;
+  --muted: #93a0bd;
+  --you: #7fd6ff;
+  --hit: #ffd84d;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", Consolas, ui-monospace, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--space); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 32px 56px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+.wrap > * { min-width: 0; }
+a { color: var(--you); }
+a:focus-visible { outline: 2px solid var(--you); outline-offset: 2px; }
+.back { font-size: 14px; text-decoration: none; }
+.eyebrow { margin: 0; font-family: var(--f-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--hit); }
+h1 { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: clamp(32px, 6vw, 48px); line-height: 1.05; letter-spacing: -.02em; text-wrap: balance; }
+h2 { margin: 0 0 8px; font-family: var(--f-display); font-weight: 800; font-size: 24px; line-height: 1.2; }
+p { margin: 0 0 10px; }
+.muted { color: var(--muted); }
+header { display: grid; gap: 10px; }
+.summary { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+.summary ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--f-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--panel); }
+tr:last-child td { border-bottom: 0; }
+td strong { font-weight: 600; }
+section ul { margin: 0 0 10px; padding-left: 20px; display: grid; gap: 4px; }
+footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 16px; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="./">← Back to Send Me Up</a>
+
+  <header>
+    <p class="eyebrow">Privacy</p>
+    <h1>What this site keeps, and what it sends where</h1>
+    <p class="muted">Last updated: 8 November 2026</p>
+  </header>
+
+  <section class="summary" aria-labelledby="short">
+    <h2 id="short">In short</h2>
+    <ul>
+      <li>No accounts, no ads, no tracking, no cookies, no visitor counting.</li>
+      <li>Your location is used only inside the page on your own device. It is never sent anywhere and never stored.</li>
+      <li>The town search uses a list that is part of this website. What you type is not sent to any search service.</li>
+      <li>Everything the app needs (code, fonts, pictures, star, galaxy, town and satellite lists) comes from this website itself. Your browser contacts no other service.</li>
+      <li>We have no server and no database, so we hold no personal data about you.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="who">
+    <h2 id="who">Who runs this site</h2>
+    <p>Send Me Up is a free, personal, non-commercial project by Arman, the maker of <a href="https://digstraightthrough.github.io/">Dig Straight Through</a> and <a href="https://momentinorbit.com/" data-local="http://localhost:8770/">Moment in Orbit</a>.
+      For any question about privacy, write to <a href="mailto:digstraightthrough@gmail.com">digstraightthrough@gmail.com</a>.</p>
+  </section>
+
+  <section aria-labelledby="device">
+    <h2 id="device">What stays on your device</h2>
+    <p>Nothing is saved. The site does not use cookies or your browser's storage. When you close the page, your trip is gone.</p>
+  </section>
+
+  <section aria-labelledby="location">
+    <h2 id="location">Your location</h2>
+    <p>Under the button you choose where you start from: <strong>My location</strong> or <strong>Type a town</strong>.
+      The site only asks for your location when <strong>My location</strong> is chosen and you are sent up. Your browser asks for your permission first,
+      and the site asks for a fresh position each time, so it never uses an old one. To find your position, your phone or browser may use its own
+      location service; that happens between you and your device, under its own privacy rules.</p>
+    <p>The position the browser gives us is used inside the page to work out what is straight above you. It is not sent to us or to anyone else, and it is not stored.</p>
+    <p>If you would rather not share your location, choose <strong>Type a town</strong> and type a nearby town instead.</p>
+  </section>
+
+  <section aria-labelledby="sends">
+    <h2 id="sends">What your browser asks this website for</h2>
+    <p>Like any website, your browser downloads this site's pages and files. The website is hosted by GitHub Pages, which receives your internet (IP) address
+      and basic browser information with each download, and handles that under its own privacy statement. Two kinds of files say a little about what you do:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Service</th><th>When</th><th>Which files</th><th>What that reveals</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>GitHub Pages</strong> (hosting)<br><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">Privacy statement</a></td>
+            <td>Every visit</td>
+            <td>The page, its code, fonts, pictures (the Earth map, the planets), the list of named stars and the satellite list (the same for every visitor)</td>
+            <td>Only that you visited</td>
+          </tr>
+          <tr>
+            <td><strong>GitHub Pages</strong></td>
+            <td>When you type a town</td>
+            <td>One small part of the town list, chosen by the first letters you typed (for example the part for "ol…")</td>
+            <td>The first two letters you typed (up to five for very common beginnings like "Santa…"), not the whole name</td>
+          </tr>
+          <tr>
+            <td><strong>GitHub Pages</strong></td>
+            <td>When you press Send me up</td>
+            <td>The galaxy lists for your part of the sky, in strips of 10 degrees north–south</td>
+            <td>Your latitude to within about 4 to 6 degrees (roughly 500 km north–south; wider near the poles), but not your longitude or exact position.
+              For comparison, the internet address that every website sees usually says more than this.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="dont">
+    <h2 id="dont">What we don't do</h2>
+    <ul>
+      <li>No user accounts or sign-in.</li>
+      <li>No advertising, no tracking tools, no visitor statistics.</li>
+      <li>No selling or sharing of data. We don't collect any to begin with.</li>
+      <li>Fonts and code libraries are served from this site itself, so your browser does not contact Google or code-hosting services when you visit.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="credits">
+    <h2 id="credits">Where the facts come from</h2>
+    <p>The sky is calculated on your device from these free sources. Our trimmed copies of the lists are shared under the same licences.</p>
+    <ul>
+      <li>Positions of the Sun, Moon and planets: <a href="https://github.com/cosinekitty/astronomy">Astronomy Engine</a> by Don Cross (MIT licence).</li>
+      <li>Stars: <a href="https://codeberg.org/astronexus/hyg">HYG Database</a> by David Nash (CC BY-SA 4.0).</li>
+      <li>Galaxies: <a href="https://github.com/mattiaverga/OpenNGC">OpenNGC</a> by Mattia Verga (CC BY-SA 4.0).</li>
+      <li>Distances of famous galaxies: Wikipedia, <a href="https://en.wikipedia.org/wiki/Messier_object">Messier object</a> (CC BY-SA 4.0). Other galaxy distances are rough estimates from their redshift.</li>
+      <li>Towns: <a href="https://www.geonames.org/">GeoNames</a> (CC BY 4.0).</li>
+      <li>Earth map and planet pictures in the trip film: made from maps by <a href="https://www.solarsystemscope.com/textures/">Solar System Scope</a>, based on NASA data (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>). We wrapped the planet maps onto spheres and made them smaller; they are stored on this website. The landmarks are our own simple drawings, and our galaxy in the film is a simple sketch of its spiral arms.</li>
+      <li>Satellite orbit data: <a href="https://celestrak.org">CelesTrak</a>, which gets it from the US Space Force (18th Space Defense Squadron) via Space-Track. Our copy is refreshed from CelesTrak, not by your browser. Satellite positions: <a href="https://github.com/shashwatak/satellite-js">satellite.js</a> (MIT licence).</li>
+      <li>Background photos (the "Cosmic Cliffs" in the Carina Nebula, and Webb's First Deep Field): NASA, ESA, CSA, and STScI,
+        from <a href="https://esawebb.org/copyright/">ESA/Webb</a> (CC BY 4.0). We made them smaller and darker; they are stored on this website.</li>
+      <li>Rocket sound at lift-off: "Large Rocket Engine" by Zovex (Freesound), via <a href="https://pixabay.com/sound-effects/large-rocket-engine-86240/">Pixabay</a> (Pixabay Content License). Stored on this website.</li>
+      <li>Facts about the planets, the Moon, the Sun and the Space Station: worded from NASA's fact pages. Heights of the layers of the air: NOAA.</li>
+      <li>Fonts: Bricolage Grotesque, Instrument Sans and JetBrains Mono (SIL Open Font License).</li>
+    </ul>
+    <p class="muted">Links on this page open other websites only if you click them. Once you are there, their own privacy rules apply.</p>
+  </section>
+
+  <section aria-labelledby="rights">
+    <h2 id="rights">Your rights</h2>
+    <p>Because this site stores no personal data on any server, there is nothing about you for us to show, correct or delete.
+      You can always write to us at <a href="mailto:digstraightthrough@gmail.com">digstraightthrough@gmail.com</a>, and you have the right to complain to your local data protection authority.</p>
+  </section>
+
+  <footer>If this page changes, the date at the top will change too.</footer>
+</main>
+<script>
+// While trying this on this computer, the link to the sister site goes to its local copy. On the public site it stays as written.
+if (location.hostname === 'localhost') document.querySelectorAll('a[data-local]').forEach(a => { a.href = a.dataset.local; });
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Only the public site, and what GitHub needs to publish it, goes into the online project.
+# Everything else in this folder stays on this computer: PLAN.md, raw downloads, test pages,
+# helper tools, the start file, and the satellite list (GitHub's job makes a fresh one).
+/*
+!/.gitignore
+!/.github/
+!/index.html
+!/privacy.html
+!/manifest.webmanifest
+!/preview.png
+!/icons/
+!/img/
+!/sounds/
+!/vendor/
+!/js/
+/js/zoom-test.js
+!/data/
+/data/stars.json
+/data/galaxies.json
+/data/satellites.json
+!/tools/
+/tools/*
+!/tools/fetch-satellites.mjs

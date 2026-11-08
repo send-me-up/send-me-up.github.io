@@ -1,0 +1,97 @@
+# Publishes Send Me Up on GitHub Pages (https://send-me-up.github.io) and keeps its satellite list fresh.
+#
+# - Every change pushed to main: publish the site.
+# - Every 2 hours (GitHub may start it late): if our satellite list is 8 hours old or more, fetch ONE new list
+#   from CelesTrak and publish it. CelesTrak's rules (Dr. T.S. Kelso's email, 7 Nov 2026, and their data page):
+#   at most one download every 8 hours, CSV, and never retry after a refusal. tools/fetch-satellites.mjs keeps them.
+# - The satellite list is never saved in the project's history (that would add about 1 GB a year):
+#   each run starts from the copy that is on the live site.
+# - GitHub pauses scheduled jobs in public projects after 60 days without activity. So when the project has had
+#   no change for 50 days, the job adds an empty note (commit) to stay awake.
+#   If it ever stops anyway: Actions tab -> Publish -> "Enable workflow".
+name: Publish
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '37 */2 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write   # only for the keep-awake note
+    outputs:
+      publish: ${{ steps.decide.outputs.publish }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Take the satellite list that is on the site now
+        run: |
+          node --version
+          if curl -fsSL --retry 2 -o data/satellites.json https://send-me-up.github.io/data/satellites.json \
+             && node -e "console.log('The copy on the site is from', JSON.parse(require('fs').readFileSync('data/satellites.json', 'utf8')).fetched)"; then
+            :
+          else
+            rm -f data/satellites.json
+            echo "No usable copy on the site yet."
+          fi
+
+      - name: A new list from CelesTrak, only if ours is 8 hours old or more
+        id: decide
+        run: |
+          when() { node -e "try { console.log(JSON.parse(require('fs').readFileSync('data/satellites.json', 'utf8')).fetched) } catch { console.log('none') }"; }
+          before=$(when)
+          node tools/fetch-satellites.mjs || echo "::warning::No new satellite list this time. The site keeps the one it has; the next try is in 2 hours at the earliest."
+          after=$(when)
+          echo "Satellite list before: $before, after: $after"
+          if [ "$GITHUB_EVENT_NAME" != "schedule" ] || [ "$before" != "$after" ]; then echo "publish=true" >> "$GITHUB_OUTPUT"; else echo "publish=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Put the site's files together
+        if: steps.decide.outputs.publish == 'true'
+        run: |
+          mkdir _site _site/data
+          cp -r index.html privacy.html manifest.webmanifest preview.png icons img sounds vendor js _site/
+          cp -r data/stars-named.json data/galaxies data/places _site/data/
+          if [ -f data/satellites.json ]; then cp data/satellites.json _site/data/; fi
+          rm -f _site/js/zoom-test.js
+          du -sh _site
+
+      - uses: actions/upload-pages-artifact@v5
+        if: steps.decide.outputs.publish == 'true'
+        with:
+          path: _site
+
+      - name: Keep the scheduled job awake (GitHub pauses it after 60 quiet days)
+        if: github.event_name == 'schedule'
+        run: |
+          days=$(( ( $(date +%s) - $(git log -1 --format=%ct) ) / 86400 ))
+          echo "Last change to the project: $days days ago."
+          if [ "$days" -ge 50 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit --allow-empty -m "Keep the satellite update awake (GitHub pauses scheduled jobs after 60 quiet days)"
+            git push
+          fi
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,7 @@
+{
+  "name": "satellite.js-parts",
+  "version": "7.1.0",
+  "license": "MIT",
+  "type": "module",
+  "description": "The parts of satellite.js 7.1.0 (MIT, github.com/shashwatak/satellite-js) that Send Me Up uses, copied unchanged from the npm package. No WebAssembly parts."
+}
